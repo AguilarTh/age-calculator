@@ -1,0 +1,67 @@
+.form-boxes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  width: 30%;
+}
+
+label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--g500);
+  letter-spacing: 0.15rem;
+}
+
+/* CONFERIR MELHOR DPS O PASSO-A-PASSO PARA MUDAR A BOX */
+
+input {
+  /* REMOÇÃO DA APARENCIA PADRÃO */
+  appearance: none;
+  width: 100%;
+  /* ? */
+  box-sizing: border-box;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid var(--g200);
+  border-radius: 0.4rem;
+  /* ? */
+  outline: none;
+  background-color: transparent;
+
+  color: var(--black);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+input::placeholder {
+  color: var(--g500);
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+}
+
+/* REMOVER AS SETAS LATERAIS */
+.input-box input::-webkit-outer-spin-button,
+.input-box input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@media (min-width: 1200px) {
+  .form-boxes {
+    justify-content: flex-start;
+    gap: 2rem;
+  }
+  .input-box {
+    width: 20%;
+  }
+  input {
+    padding: 0.75rem 1rem;
+    font-size: 1.5rem;
+  }
+}

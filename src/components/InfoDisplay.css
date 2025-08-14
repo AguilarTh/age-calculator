@@ -1,0 +1,27 @@
+.display {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.number {
+  color: var(--purple);
+  font-weight: var(--font-weight-bold);
+  font-size: 3rem;
+  font-style: italic;
+}
+
+.type {
+  color: var(--black);
+  font-weight: var(--font-weight-bold);
+  font-size: 3rem;
+  font-style: italic;
+}
+
+@media (min-width: 1200px) {
+  .number {
+    font-size: 5rem;
+  }
+  .type {
+    font-size: 5rem;
+  }
+}

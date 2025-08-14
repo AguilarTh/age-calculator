@@ -1,0 +1,19 @@
+.button-standard {
+  background-color: var(--purple);
+  border: none;
+  /* Deixa em formato de circle */
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 1200px) {
+  .button-standard {
+    width: 96px;
+    height: 96px;
+  }
+}

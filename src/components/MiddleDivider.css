@@ -1,0 +1,20 @@
+.middle-divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Anotar sobre a utilização do <hr> e suas possiveis personalizações */
+.divider-line {
+  border: none;
+  /* Faz as linhas crescerem o maximo até encontrar o button */
+  flex-grow: 1;
+  height: 2px;
+  background-color: var(--g200);
+}
+
+@media (min-width: 1200px) {
+  .mobile-line {
+    display: none;
+  }
+}
