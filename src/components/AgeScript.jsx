@@ -1,95 +1,64 @@
-// Lógica feita pelo Pedro
-
 import { useState } from "react";
 
 export default function AgeScript() {
+  // birthDate guarda os valores do input 
+  const [birthDate, setBirthDate] = useState({
+    day: "",
+    month: "",
+    year: "",
+  });
 
-  // Estado para a data digitada pelo usuário
-  const [birthDate, setBirthDate] = useState("");
+  // resultado final do cálculo da idade
+  const [ageResult, setAgeResult] = useState({
+    years: "--",
+    months: "--",
+    days: "--",
+  });
 
-  // Estado para o resultado da idade
-  const [ageResult, setAgeResult] = useState({ years: 0, months: 0, days: 0 });
-
-  // Função para calcular se o ano é bissexto
-  const isLeapYear = (year) => {
-    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
-  };
-
+  // Função responsável por calcular a idade
   const calculateAge = () => {
+    const { day, month, year } = birthDate;
 
-    // Valida se o input está vazio
-    if (!birthDate) {
-      alert("Por favor, insira sua data de nascimento");
-      return;
+    // Caso algum campo esteja vazio
+    if (!day || !month || !year) {
+      return 0; // não faz nada (colocar função de erro)
     }
 
-    // Extrair ano, mês e dia do input
-    const [year, month, day] = birthDate.split("-").map(Number);
-
-    // Dias máximos de cada mês
-    const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-    // Ajusta fevereiro se for ano bissexto
-    if (isLeapYear(year)) daysInMonth[1] = 29;
-
-    // Validação da data
-    if (month < 1 || month > 12 || day < 1 || day > daysInMonth[month - 1]) {
-      alert("Data inválida!");
-      return;
-    }
-
-    // Cria objeto Date para a data de nascimento e data atual
-    const birth = new Date(birthDate);
     const today = new Date();
+    const birth = new Date(year, month - 1, day); // JS usa meses de 0-11
 
-    // Extrair ano, mês e dia de cada data
-    let birthYear = birth.getFullYear();
-    let birthMonth = birth.getMonth(); // 0 a 11
-    let birthDay = birth.getDate();
-
-    let todayYear = today.getFullYear();
-    let todayMonth = today.getMonth();
-    let todayDay = today.getDate();
-
-    // Calcula os anos
-    let years;
-    if (birthYear <= todayYear) {
-      years = todayYear - birthYear;
-    } else {
-      alert("Data de nascimento maior que a data atual!");
-      return;
+    // Verificar se a data é válida (nascimento no futuro, mês/dia inválido etc.)
+    if (birth > today || isNaN(birth.getTime())) {
+      return 0; // não faz nada(colocar função de erro)
     }
 
-    // Calcula os meses
-    let months;
-    if (birthMonth > todayMonth) {
-      years = years - 1; // Ajusta ano se o mês ainda não chegou
-      months = 12 - (birthMonth - todayMonth);
-    } else {
-      months = todayMonth - birthMonth;
+    // Cálculo da Idade 
+    let years = today.getFullYear() - birth.getFullYear();
+    let months = today.getMonth() - birth.getMonth();
+    let days = today.getDate() - birth.getDate();
+
+    // Se os dias ficaram negativos, "empresta" dias do mês anterior
+    if (days < 0) {
+      months -= 1;
+
+      // Pega quantos dias teve no mês anterior
+      const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+      days += lastMonth.getDate();
     }
 
-    // Calcula os dias
-    let days;
-    if (birthDay > todayDay) {
-      months = months - 1; // Ajusta mês se o dia ainda não chegou
-      // Pega quantidade de dias do mês anterior
-      const prevMonthDays = new Date(todayYear, todayMonth, 0).getDate();
-      days = prevMonthDays - (birthDay - todayDay);
-    } else {
-      days = todayDay - birthDay;
-    }
-
-    // Ajuste final caso months fique negativo após o cálculo dos dias
+    // Se os meses ficaram negativos, "empresta" do ano anterior
     if (months < 0) {
-      years = years - 1;
-      months = months + 12;
+      years -= 1;
+      months += 12;
     }
 
-    // Atualiza o estado com o resultado final
-    setAgeResult({ years, months, days });
+    setAgeResult({
+      years,
+      months,
+      days,
+    });
   };
 
-  // Exporta estados e função para usar nos outros componentes
+  // Retorna todas as variáveis e funções para serem usadas em outros componentes
   return { birthDate, setBirthDate, ageResult, calculateAge };
 }
