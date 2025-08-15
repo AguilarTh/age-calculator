@@ -1,0 +1,13 @@
+.error-msg {
+  color: var(--red);
+  font-size: 0.5rem;
+  font-weight: var(--font-weight-thin);
+  /* Para nn desnivelar - Olhar melhor */
+  position: absolute;
+}
+
+@media (min-width: 1200px) {
+  .error-msg {
+    font-size: 0.8rem;
+  }
+}
