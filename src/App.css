@@ -51,7 +51,7 @@ body {
   background-color: var(--white);
   /* quando usar % e vw/h msm? -> olhar doc no disc dps*/
   width: 90vw;
-  height: 60vh;
+  height: 70vh;
   padding: 2rem;
   border-radius: 2rem;
   border-bottom-right-radius: 8rem;
@@ -75,10 +75,3 @@ body {
     gap: 0rem;
   }
 }
-
-/* 
-teste
-tes
-tes
-te
-tes */
