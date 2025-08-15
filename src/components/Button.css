@@ -11,6 +11,10 @@
   align-items: center;
 }
 
+.button-standard:hover {
+  background-color: var(--black);
+}
+
 @media (min-width: 1200px) {
   .button-standard {
     width: 96px;
