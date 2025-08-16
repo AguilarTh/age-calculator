@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function AgeScript() {
+export default function useAgeScript() {
   // birthDate guarda os valores do input 
   const [birthDate, setBirthDate] = useState({
     day: "",
