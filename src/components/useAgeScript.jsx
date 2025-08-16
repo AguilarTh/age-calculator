@@ -28,7 +28,7 @@ export default function useAgeScript() {
     const newErrors = { day: "", month: "", year: "" };
     let isValid = true;
 
-    const d = paseInt(day);
+    const d = parseInt(day);
     const m = parseInt(month);
     const y = parseInt(year);
     const today = new Date();
@@ -48,7 +48,7 @@ export default function useAgeScript() {
     }
 
     // Caso já haja campos vazios, não precisa continuar
-    if(isValid){
+    if(!isValid){
       setErrors(newErrors);
       return false;
     }
@@ -61,14 +61,14 @@ export default function useAgeScript() {
         isValid = false;
     }
     // Verificar se a data está no futuro
-    if (date > today) {
+    if (date > today) { // Usei 'else if' para não sobrepor o erro de data inválida
         // --- CORREÇÃO APLICADA AQUI ---
         newErrors.day = "future"; // Pode ser em qualquer campo
         newErrors.month = "future";
         newErrors.year = "future";
         isValid = false;
     }
-    setErrors(newErros);
+    setErrors(newErrors);
     return isValid;
   }
 
