@@ -52,12 +52,13 @@ export default function useAgeScript() {
       setErrors(newErrors);
       return false;
     }
-
     // Verificar data inválida (ex: 30 de fevereiro)
     const date = new Date(y, m-1, d);
     if (isNaN(date.getTime()) || date.getDate() !== d || date.getMonth() + 1 !== m || m > 12 || m < 1 || d < 1 || d > 31) {
         // --- CORREÇÃO APLICADA AQUI ---
-        newErrors.day = "invalid"; // Atribui o erro à propriedade 'day'
+        newErrors.day = "invalid-date";
+        newErrors.month = "invalid-date";
+        newErrors.year = "invalid-date"; // Atribui o erro à todas as propriedades 
         isValid = false;
     }
     // Verificar se a data está no futuro
