@@ -2,7 +2,7 @@ import "./ErrorMsg.css";
 
 // POSSIVEIS ERRORs:
 // EMPTY / INVALID (day/month) / FUTURE (year)
-export default function ErrorMsg({ errorType }) {
+export default function ErrorMsg({ errorType, fieldName }) {
   let msg;
   switch (errorType) {
     case "empty":
@@ -15,12 +15,10 @@ export default function ErrorMsg({ errorType }) {
       msg = "Must be a valid month";
       break;
     case "invalid-date":
-      // Mostra a mensagem apenas no primeiro campo (dia) para não repetir
-      msg = fieldName === 'day' ? "Must be a valid date" : "";
+      msg = "Must be a valid date";
       break;
     case "future":
-      // Mostra a mensagem apenas no primeiro campo (dia)
-      msg = fieldName === 'day' ? "Must be in the past" : "";
+      msg ="Must be in the past";
       break;
     default:
       msg = "";

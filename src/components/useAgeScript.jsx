@@ -26,51 +26,53 @@ export default function useAgeScript() {
   const validateInputs = () =>{
     const {day, month, year} =  birthDate;
     const newErrors = { day: "", month: "", year: "" };
-    let isValid = true;
+    let isGenerallyValid = true;
 
     const d = parseInt(day);
     const m = parseInt(month);
     const y = parseInt(year);
     const today = new Date();
 
-    //Verificar campos vazios
+    //--- Validação Individuais Simultâneas ---
+
+    // Validação do dia
     if(!day){
       newErrors.day = "empty";
-      isValid = false;
+      isGenerallyValid = false;
+    }else if (d < 1 || d > 31){
+      newErrors.day = "invalid-day"
+      isGenerallyValid = false;
     }
+
+    // Validação do mês
     if(!month){
       newErrors.month = "empty";
-      isValid = false;
+      isGenerallyValid = false;
+    }else if ( m < 1 || m > 12) {
+      newErrors.month = "invalid-month";
+      isGenerallyValid = false;
     }
+
+    // Validação do ano
     if(!year){
       newErrors.year = "empty";
       isValid = false;
+    }else if (y > today.getFullYear()) {
+      newErrors.year = "future";
+      isGenerallyValid = false;
     }
 
-    // Caso já haja campos vazios, não precisa continuar
-    if(!isValid){
-      setErrors(newErrors);
-      return false;
-    }
-    // Verificar data inválida (ex: 30 de fevereiro)
-    const date = new Date(y, m-1, d);
-    if (isNaN(date.getTime()) || date.getDate() !== d || date.getMonth() + 1 !== m || m > 12 || m < 1 || d < 1 || d > 31) {
-        // --- CORREÇÃO APLICADA AQUI ---
-        newErrors.day = "invalid-date";
-        newErrors.month = "invalid-date";
-        newErrors.year = "invalid-date"; // Atribui o erro à todas as propriedades 
-        isValid = false;
-    }
-    // Verificar se a data está no futuro
-    if (date > today) { // Usei 'else if' para não sobrepor o erro de data inválida
-        // --- CORREÇÃO APLICADA AQUI ---
-        newErrors.day = "future"; // Pode ser em qualquer campo
-        newErrors.month = "future";
-        newErrors.year = "future";
-        isValid = false;
+    // --- Validação da Combinação ---
+    // Só executa se os campos individuais forem numéricamente válidos
+    if(isGenerallyValid) {
+      const date = new Date(y,m-1,d);
+      if(date.getFullYear() !== y || date.getMonth() + 1 !== m || date.getDate() !== d) {
+        newErrors.day = "invalid-date"; // Se a combinação for inválida, o erro principal fica no dia 
+        isGenerallyValid = false;
+      }
     }
     setErrors(newErrors);
-    return isValid;
+    return isGenerallyValid;
   }
 
   // Função responsável por calcular a idade
