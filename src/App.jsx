@@ -5,11 +5,11 @@ import AgeDisplay from "./components/AgeDisplay";
 import AgeScript from "./components/AgeScript";
 
 function App() {
-  const { birthDate, setBirthDate, ageResult, calculateAge } = AgeScript();
+  const { birthDate, setBirthDate, ageResult, calculateAge, errors } = AgeScript();
 
   return (
     <div className="container">
-      <InputBox birthDate={birthDate} setBirthDate={setBirthDate} />
+      <InputBox birthDate={birthDate} setBirthDate={setBirthDate} errors={errors} />
       <MiddleDivider onAction={calculateAge} />
       <AgeDisplay ageResult={ageResult} />
     </div>
