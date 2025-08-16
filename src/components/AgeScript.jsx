@@ -60,7 +60,7 @@ export default function AgeScript() {
     }
 
     // Verificar data inválida (ex: 30 de fevereiro)
-    const date = new Date(y, m-1,d);
+    const date = new Date(y, m-1, d);
     if(isNaN(date.getTime()) || date.getDate() !== d ||  date.getMonth() + 1 !== m){
       newErrors = "invalid";
       // Limpa o resto para não mostrar mensagens duplicadas
@@ -74,21 +74,29 @@ export default function AgeScript() {
   }
 
   // Função responsável por calcular a idade
+  // ALTERAÇÃO RAUL: Adequação dessa função com a validateInputs
   const calculateAge = () => {
+    if(!validateInputs()){
+      // Limpa os resultados se houver erro
+      setAgeResult({ years: "--", months: "--", days: "--" });
+      return;
+    }
     const { day, month, year } = birthDate;
 
     // Caso algum campo esteja vazio
+    /* ALTERAÇÃO RAUL: O primeiro if já garante todos os erros
     if (!day || !month || !year) {
       return 0; // não faz nada (colocar função de erro)
-    }
+    }*/
 
     const today = new Date();
     const birth = new Date(year, month - 1, day); // JS usa meses de 0-11
 
     // Verificar se a data é válida (nascimento no futuro, mês/dia inválido etc.)
+    /* ALTERAÇÃO RAUL: O primeiro if já garante todos os erros
     if (birth > today || isNaN(birth.getTime())) {
       return 0; // não faz nada(colocar função de erro)
-    }
+    }*/
 
     // Cálculo da Idade 
     let years = today.getFullYear() - birth.getFullYear();
@@ -118,5 +126,6 @@ export default function AgeScript() {
   };
 
   // Retorna todas as variáveis e funções para serem usadas em outros componentes
-  return { birthDate, setBirthDate, ageResult, calculateAge };
+  // ALTERAÇÃO RAUL: Acréscimo de "errors"
+  return { birthDate, setBirthDate, ageResult, calculateAge, errors};
 }
