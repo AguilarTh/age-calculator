@@ -23,8 +23,9 @@ export default function InputBox({ birthDate, setBirthDate, errors }) {
 
   return (
     // O <form> deve conter todo o formulário, substituir uma <div> por ele
-    <form className="form-boxes">
-      <div className="input-box">
+    <div className="form-boxes">
+      {/*Testando adicionar a classe de erro dinamicamente*/}
+      <div className={`input-box ${getErrorClass("day")}`}>
         <label htmlFor="iDay">DAY</label>
         <input
           type="number"
@@ -34,10 +35,12 @@ export default function InputBox({ birthDate, setBirthDate, errors }) {
           value={birthDate.day}
           onChange={handleChange}
         />
-        <ErrorMsg errorType={dayValidate} />
+        {/* Passando o tipo de erro para o ErrorMsg */}
+        <ErrorMsg errorType={errors.day} />
       </div>
 
-      <div className="input-box">
+      {/*Testando adicionar a classe de erro dinamicamente*/}
+      <div className={`input-box ${getErrorClass("month")}`}>
         <label htmlFor="iMonth">MONTH</label>
         <input
           type="number"
@@ -47,10 +50,12 @@ export default function InputBox({ birthDate, setBirthDate, errors }) {
           value={birthDate.month}
           onChange={handleChange}
         />
-        <ErrorMsg errorType={monthValidate} />
+        {/* Passando o tipo de erro para o ErrorMsg */}
+        <ErrorMsg errorType={errors.month} />
       </div>
 
-      <div className="input-box">
+      {/*Testando adicionar a classe de erro dinamicamente*/}
+      <div className={`input-box ${getErrorClass("year")}`}>
         <label htmlFor="iYear">YEAR</label>
         <input
           type="number"
@@ -60,8 +65,9 @@ export default function InputBox({ birthDate, setBirthDate, errors }) {
           value={birthDate.year}
           onChange={handleChange}
         />
-        <ErrorMsg errorType={yearValidate} />
+        {/* Passando o tipo de erro para o ErrorMsg */}        
+        <ErrorMsg errorType={errors.year} />
       </div>
-    </form>
+    </div>
   );
 }
