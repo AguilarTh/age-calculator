@@ -15,6 +15,64 @@ export default function AgeScript() {
     days: "--",
   });
 
+  // ALTERÇÃO RAUL: Estado para guardar os erros de cada campo
+  const [errors, setErrors] = useState({
+    day:"",
+    month:"",
+    year:"",
+  })
+
+  // ALTERAÇÃO RAUL: Função responsável por validar os inputs e retorna true ou false
+  const validateInputs = () =>{
+    const {day, month, year} =  birthDate;
+    const newErrors = { day: "", month: "", year: "" };
+    let isValid = true;
+
+    const d = paseInt(day);
+    const m = parseInt(month);
+    const y = parseInt(year);
+    const today = new Date();
+
+    //Verificar campos vazios
+    if(!day){
+      newErrors.day = "empty";
+      isValid = false;
+    }
+    if(!month){
+      newErrors.month = "empty";
+      isValid = false;
+    }
+    if(!year){
+      newErrors.year = "empty";
+      isValid = false;
+    }
+
+    // Caso já haja campos vazios, não precisa continuar
+    if(isValid){
+      setErrors(newErrors);
+      return false;
+    }
+
+    // Verificar datas no futuro
+    if (y > today.getFullYear()) {
+      newErrors.year = "future";
+      isValid = false;
+    }
+
+    // Verificar data inválida (ex: 30 de fevereiro)
+    const date = new Date(y, m-1,d);
+    if(isNaN(date.getTime()) || date.getDate() !== d ||  date.getMonth() + 1 !== m){
+      newErrors = "invalid";
+      // Limpa o resto para não mostrar mensagens duplicadas
+      newErrors.month ="";
+      newErrors.year ="";
+      isValid = false;
+    }
+
+    setErrors(newErros);
+    return isValid;
+  }
+
   // Função responsável por calcular a idade
   const calculateAge = () => {
     const { day, month, year } = birthDate;
