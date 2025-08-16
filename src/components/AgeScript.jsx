@@ -53,22 +53,21 @@ export default function AgeScript() {
       return false;
     }
 
-    // Verificar datas no futuro
-    if (y > today.getFullYear()) {
-      newErrors.year = "future";
-      isValid = false;
-    }
-
     // Verificar data inválida (ex: 30 de fevereiro)
     const date = new Date(y, m-1, d);
-    if(isNaN(date.getTime()) || date.getDate() !== d ||  date.getMonth() + 1 !== m){
-      newErrors = "invalid";
-      // Limpa o resto para não mostrar mensagens duplicadas
-      newErrors.month ="";
-      newErrors.year ="";
-      isValid = false;
+    if (isNaN(date.getTime()) || date.getDate() !== d || date.getMonth() + 1 !== m || m > 12 || m < 1 || d < 1 || d > 31) {
+        // --- CORREÇÃO APLICADA AQUI ---
+        newErrors.day = "invalid"; // Atribui o erro à propriedade 'day'
+        isValid = false;
     }
-
+    // Verificar se a data está no futuro
+    if (date > today) {
+        // --- CORREÇÃO APLICADA AQUI ---
+        newErrors.day = "future"; // Pode ser em qualquer campo
+        newErrors.month = "future";
+        newErrors.year = "future";
+        isValid = false;
+    }
     setErrors(newErros);
     return isValid;
   }
