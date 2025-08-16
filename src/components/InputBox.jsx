@@ -36,7 +36,7 @@ export default function InputBox({ birthDate, setBirthDate, errors }) {
           onChange={handleChange}
         />
         {/* Passando o tipo de erro para o ErrorMsg */}
-        <ErrorMsg errorType={errors.day} />
+        <ErrorMsg errorType={errors.day} fieldName = "day" />
       </div>
 
       {/*Testando adicionar a classe de erro dinamicamente*/}
@@ -51,7 +51,7 @@ export default function InputBox({ birthDate, setBirthDate, errors }) {
           onChange={handleChange}
         />
         {/* Passando o tipo de erro para o ErrorMsg */}
-        <ErrorMsg errorType={errors.month} />
+        <ErrorMsg errorType={errors.month} fieldName="month" />
       </div>
 
       {/*Testando adicionar a classe de erro dinamicamente*/}
@@ -66,7 +66,7 @@ export default function InputBox({ birthDate, setBirthDate, errors }) {
           onChange={handleChange}
         />
         {/* Passando o tipo de erro para o ErrorMsg */}        
-        <ErrorMsg errorType={errors.year} />
+        <ErrorMsg errorType={errors.year} fieldName="year" />
       </div>
     </div>
   );
