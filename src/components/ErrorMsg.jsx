@@ -14,6 +14,9 @@ export default function ErrorMsg({ errorType, fieldName }) {
     case "invalid-month":
       msg = "Must be a valid month";
       break;
+    case "invalid-year":
+      msg = "Must be a valid year";
+      break;
     case "invalid-date":
       msg = "Must be a valid date";
       break;

@@ -57,12 +57,12 @@ export default function useAgeScript() {
     // Validação do ano
     if (!year) {
       newErrors.year = "empty";
-      isGenerallyValid = false; 
-    } else if (y > today.getFullYear()) {
-      newErrors.year = "future";
       isGenerallyValid = false;
     } else if (year.length < 4 || y < 1900) { // --- ALTERAÇÃO APLICADA AQUI ---
       newErrors.year = "invalid-year";      // Garante 4 dígitos e um ano razoável
+      isGenerallyValid = false;
+    } else if (y > today.getFullYear()) {
+      newErrors.year = "future";
       isGenerallyValid = false;
     }
 
