@@ -18,7 +18,7 @@ export default function ErrorMsg({ errorType, fieldName }) {
       msg = "Must be a valid year";
       break;
     case "invalid-date":
-      msg = "Must be a valid date";
+      msg = fieldName === 'day' ? "Must be a valid date" : ""; // Para o texto mostrar apenas no dia
       break;
     case "future":
       msg ="Must be in the past";

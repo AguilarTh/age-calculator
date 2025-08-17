@@ -79,6 +79,8 @@ export default function useAgeScript() {
 
       if(date.getFullYear() !== y || date.getMonth() + 1 !== m || date.getDate() !== d) {
         newErrors.day = "invalid-date"; // Se a combinação for inválida, o erro principal fica no dia 
+        newErrors.month = "invalid-date";
+        newErrors.year = "invalid-date";
         isGenerallyValid = false;
       }
     }
