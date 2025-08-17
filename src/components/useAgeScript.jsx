@@ -9,10 +9,11 @@ export default function useAgeScript() {
   });
 
   // resultado final do cálculo da idade
+  // ALTERAÇÃO RAUL: Agora inicia com null em vez de "--"
   const [ageResult, setAgeResult] = useState({
-    years: "--",
-    months: "--",
-    days: "--",
+    years: null,
+    months: null,
+    days: null,
   });
 
   // ALTERÇÃO RAUL: Estado para guardar os erros de cada campo
@@ -56,16 +57,23 @@ export default function useAgeScript() {
     // Validação do ano
     if(!year){
       newErrors.year = "empty";
-      isValid = false;
+      isGenerallyValid = false; // CORREÇÃO: aqui estava "isValid"
     }else if (y > today.getFullYear()) {
       newErrors.year = "future";
       isGenerallyValid = false;
     }
 
     // --- Validação da Combinação ---
-    // Só executa se os campos individuais forem numéricamente válidos
+    // Só executa se os campos individuais forem numericamente válidos
     if(isGenerallyValid) {
       const date = new Date(y,m-1,d);
+
+       // Verifica se a data completa é futura
+      if (date > today) {
+      newErrors.day = "future";
+      isGenerallyValid = false;
+      }
+
       if(date.getFullYear() !== y || date.getMonth() + 1 !== m || date.getDate() !== d) {
         newErrors.day = "invalid-date"; // Se a combinação for inválida, o erro principal fica no dia 
         isGenerallyValid = false;
@@ -80,7 +88,8 @@ export default function useAgeScript() {
   const calculateAge = () => {
     if(!validateInputs()){
       // Limpa os resultados se houver erro
-      setAgeResult({ years: "--", months: "--", days: "--" });
+      // ALTERAÇÃO RAUL: Agora volta para null (e não mais "--")
+      setAgeResult({ years: null, months: null, days: null });
       return;
     }
     const { day, month, year } = birthDate;
