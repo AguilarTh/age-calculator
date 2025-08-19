@@ -1,7 +1,5 @@
 import "./ErrorMsg.css";
 
-// POSSIVEIS ERRORs:
-// EMPTY / INVALID (day/month) / FUTURE (year)
 export default function ErrorMsg({ errorType, fieldName }) {
   let msg;
   switch (errorType) {
@@ -18,10 +16,10 @@ export default function ErrorMsg({ errorType, fieldName }) {
       msg = "Must be a valid year";
       break;
     case "invalid-date":
-      msg = fieldName === 'day' ? "Must be a valid date" : ""; // Para o texto mostrar apenas no dia
+      msg = fieldName === "day" ? "Must be a valid date" : ""; // Para o texto mostrar apenas no dia
       break;
     case "future":
-      msg ="Must be in the past";
+      msg = "Must be in the past";
       break;
     default:
       msg = "";

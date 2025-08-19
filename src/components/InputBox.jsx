@@ -31,7 +31,8 @@ export default function InputBox({ birthDate, setBirthDate, errors }) {
     <form className="form-boxes">
       {/*Testando adicionar a classe de erro dinamicamente*/}
       <div className={`input-box ${getErrorClass("day")}`}>
-        <label htmlFor="iDay">DAY</label>
+        {/* Passando o tipo de erro para o ErrorMsg */}
+        <ErrorMsg errorType={errors.day} fieldName="day" />
         <input
           type="number"
           name="day"
@@ -40,13 +41,13 @@ export default function InputBox({ birthDate, setBirthDate, errors }) {
           value={birthDate.day}
           onChange={handleChange}
         />
-        {/* Passando o tipo de erro para o ErrorMsg */}
-        <ErrorMsg errorType={errors.day} fieldName="day" />
+        <label htmlFor="iDay">DAY</label>
       </div>
 
       {/*Testando adicionar a classe de erro dinamicamente*/}
       <div className={`input-box ${getErrorClass("month")}`}>
-        <label htmlFor="iMonth">MONTH</label>
+        {/* Passando o tipo de erro para o ErrorMsg */}
+        <ErrorMsg errorType={errors.month} fieldName="month" />
         <input
           type="number"
           name="month"
@@ -55,13 +56,13 @@ export default function InputBox({ birthDate, setBirthDate, errors }) {
           value={birthDate.month}
           onChange={handleChange}
         />
-        {/* Passando o tipo de erro para o ErrorMsg */}
-        <ErrorMsg errorType={errors.month} fieldName="month" />
+        <label htmlFor="iMonth">MONTH</label>
       </div>
 
       {/*Testando adicionar a classe de erro dinamicamente*/}
       <div className={`input-box ${getErrorClass("year")}`}>
-        <label htmlFor="iYear">YEAR</label>
+        {/* Passando o tipo de erro para o ErrorMsg */}
+        <ErrorMsg errorType={errors.year} fieldName="year" />
         <input
           type="number"
           name="year"
@@ -70,8 +71,7 @@ export default function InputBox({ birthDate, setBirthDate, errors }) {
           value={birthDate.year}
           onChange={handleChange}
         />
-        {/* Passando o tipo de erro para o ErrorMsg */}
-        <ErrorMsg errorType={errors.year} fieldName="year" />
+        <label htmlFor="iYear">YEAR</label>
       </div>
     </form>
   );

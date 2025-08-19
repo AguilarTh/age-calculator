@@ -6,7 +6,7 @@
 
 .input-box {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 0.5rem;
 
   width: 30%;
@@ -25,12 +25,10 @@ input {
   /* REMOÇÃO DA APARENCIA PADRÃO */
   appearance: none;
   width: 100%;
-  /* ? */
   box-sizing: border-box;
   padding: 0.5rem 0.75rem;
   border: 1px solid var(--g200);
   border-radius: 0.4rem;
-  /* ? */
   outline: none;
   background-color: transparent;
 
@@ -57,9 +55,17 @@ input:focus {
   cursor: pointer;
 }
 
+input:focus + label {
+  color: hsl(260, 41%, 68%);
+}
+
 input:hover {
   border-color: var(--purple);
   cursor: pointer;
+}
+
+input:hover + label {
+  color: var(--purple);
 }
 
 @media (min-width: 1200px) {
