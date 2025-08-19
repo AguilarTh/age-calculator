@@ -3,27 +3,32 @@ import "./InputBox.css";
 
 //ALTERAÇÃO RAUL: Acréscimo da prop "errors"
 export default function InputBox({ birthDate, setBirthDate, errors }) {
-  // VARIAVEIS QUE VAO ATENTAR PARA O TIPO DE ERROR DO FORM
-  // CASO ALGUM FORM TENHA ERROR A FUNÇÃO VAI TER QUE ADD
-  // A CLASS "has-error" NO INPUT-BOX CORRESPONDENTE E ALTERAR
-  // A VARIAVEL ABAIXO
-  // let dayValidate = "";
-  // let monthValidate = "";
-  // let yearValidate = "";
-
-  //ALTERÇÃO RAUL: Função para adicionar a classe "has-error"
+  //ALTERAÇÃO RAUL: Função para adicionar a classe "has-error"
   const getErrorClass = (fieldName) => {
     return errors[fieldName] ? "has-error" : ""; //Operador ternário, costumo usar bastante e não é tão comum...
-  }
+  };
+
+  // ALTERAÇÃO THIAGO: Limitação para poder digitar apenas x digitos no input
+
   // Função para atualizar estado ao digitar
   const handleChange = (e) => {
+    const maxLengths = {
+      day: 2,
+      month: 2,
+      year: 4,
+    };
+
     const { name, value } = e.target;
-    setBirthDate({ ...birthDate, [name]: value });
+
+    const maxLength = maxLengths[name];
+
+    if (value.length <= maxLength) {
+      setBirthDate({ ...birthDate, [name]: value });
+    }
   };
 
   return (
-    // O <form> deve conter todo o formulário, substituir uma <div> por ele
-    <div className="form-boxes">
+    <form className="form-boxes">
       {/*Testando adicionar a classe de erro dinamicamente*/}
       <div className={`input-box ${getErrorClass("day")}`}>
         <label htmlFor="iDay">DAY</label>
@@ -36,7 +41,7 @@ export default function InputBox({ birthDate, setBirthDate, errors }) {
           onChange={handleChange}
         />
         {/* Passando o tipo de erro para o ErrorMsg */}
-        <ErrorMsg errorType={errors.day} fieldName = "day" />
+        <ErrorMsg errorType={errors.day} fieldName="day" />
       </div>
 
       {/*Testando adicionar a classe de erro dinamicamente*/}
@@ -65,9 +70,9 @@ export default function InputBox({ birthDate, setBirthDate, errors }) {
           value={birthDate.year}
           onChange={handleChange}
         />
-        {/* Passando o tipo de erro para o ErrorMsg */}        
+        {/* Passando o tipo de erro para o ErrorMsg */}
         <ErrorMsg errorType={errors.year} fieldName="year" />
       </div>
-    </div>
+    </form>
   );
 }
